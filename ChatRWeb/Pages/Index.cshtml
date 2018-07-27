@@ -1,0 +1,41 @@
+﻿@page
+@model ChatRWeb.Pages.IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<h1>Active Users</h1>
+<h2><span id="users"></span></h2>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@@aspnet/signalr@1.0.0/dist/browser/signalr.min.js"></script>
+<!--Add script to update the page and send messages.-->
+<script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+        function bindConnectionMessage(connection) {
+            var messageCallback = function (message) {
+                console.log('message' + message);
+                if (!message) return;
+                var userCountSpan = document.getElementById('users');
+                userCountSpan.innerText = message;
+            };
+            connection.on("updateCount", messageCallback);
+            connection.onclose(onConnectionError);
+        }
+        function onConnected(connection) {
+            console.log('connection started');
+        }
+        function onConnectionError(error) {
+            if (error && error.message) {
+                console.error(error.message);
+            }
+        }
+        var connection = new signalR.HubConnectionBuilder().withUrl('/chat').build();
+        bindConnectionMessage(connection);
+        connection.start()
+            .then(function () {
+                onConnected(connection);
+            })
+            .catch(function (error) {
+                console.error(error.message);
+            });
+    });
+</script>
