@@ -1,13 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <UserSecretsId>5324c888-8ece-4bb1-9721-da26f1a06079</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="Microsoft.Azure.SignalR" Version="1.0.0-preview1-10015" />
+    <PackageReference Include="Microsoft.Azure.SignalR" Version="1.5.1" />
   </ItemGroup>
 
 </Project>
